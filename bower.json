@@ -1,0 +1,16 @@
+{
+  "name": "oo.bte-atm.dev",
+  "description": "",
+  "author": "Alexandr Tumaykin <alexandrtumaykin@gmail.com>",
+  "main": "server.js",
+  "private": true,
+  "moduleType": [
+    "es6"
+  ],
+  "homepage": "",
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "html5shiv": "~3.7.3",
+    "respond": "~1.4.2"
+  }
+}

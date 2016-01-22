@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alexandr Tumaykin">
+    <meta name="robots" content="noindex">
+
+    <title>{% block title %}{{appName}}{% endblock %}</title>
+
+    {% block head %}
+    <link media="all" type="text/css" rel="stylesheet" href="/vendor/bower/bootstrap/dist/css/bootstrap.min.css">
+    <link media="all" type="text/css" rel="stylesheet" href="/assets/main.css">
+    {% endblock %}
+
+    <!-- Html5 shim and Respond.js IE8 support of Html5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/vendor/bower/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="/vendor/bower/respond/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+{% include "./_nav.html" %}
+{% include "./_browsehappy.html" %}
+{% include "./_flash.html" %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}{% endblock %}
+</body>
+</html>

@@ -78,9 +78,10 @@ module.exports = {
     //https://github.com/fundon/koa-i18n
     i18n: {
         directory: Path.app + '/locales',
-        defaultLocale: 'ru', //When you pass in an array of locales the first locale is automatically set as the defaultLocale.
-        locales: ['ru'],
-        query: false,
+        extension: '.json',
+        defaultLocale: 'ru',
+        locales: ['ru', 'en'],
+        query: true,
         subdomain: false,
         cookie: false,
         header: false,

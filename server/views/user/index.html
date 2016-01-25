@@ -1,12 +1,45 @@
 {% extends '../layouts/main.html' %}
 
-{% block title %}Users{% endblock %}
+{% block title %}
+{{ __("Users") }}
+{% endblock %}
 
 {% block content %}
-<div class="container">
-    Users page
+<div class="container-fluid">
+    <div class="page-header">
+        <h1 class="text-uppercase">{{ __("Users") }}</h1>
+    </div>
+
     <div class="row">
-        <a href="/user/create" class="btn">create</a>
+        <div class="col-sm-12">
+            <a href="/user/create" class="btn btn-success">{{ __("Create") }}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>email</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.email }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

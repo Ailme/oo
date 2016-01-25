@@ -18,7 +18,7 @@ let User = Waterline.Collection.extend({
         },
         password: {
             type: 'string',
-            password: true,
+            required: true,
             minLength: 6,
             maxLength: 21
         },
@@ -27,13 +27,9 @@ let User = Waterline.Collection.extend({
         return this.passwordConfirmation;
     },
     //custom validation rules
-    types: {
-        password: function (password) {
-            return password === this.passwordConfirmation;
-        }
-    },
+    types: {},
     beforeCreate: function (values, next) {
-        values.password = '123456';
+        //values.password = '123456';
         next();
     },
     comparePassword: function *(candidatePassword) {

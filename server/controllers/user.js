@@ -5,44 +5,52 @@ module.exports = {
         this.state.title = "user:index | " + this.state.name;
 
         let User = this.models.user;
+        let items;
 
-        //console.log(this.models);
+        yield function (done) {
+            User.find().exec(function (err, model) {
+                items = model;
+                done(err);
+            });
+        };
 
-        User.find({id: 1}).exec(function (err, model) {
-            console.log(err);
-            console.log(model);
-
-            //    //return model.toJSON(); // Will return only the name
+        yield this.render('user/index', {
+            items: items
         });
-
-        yield this.render('user/index');
     },
+
     create: function *() {
         yield this.render('user/create');
     },
+
     doCreate: function *() {
         if (!this.request.body) {
-            this.flash.danger = 'The body is empty';
-            this.redirect('/user/create')
+            this.flash.danger = this.i18n.__('The body is empty');
+            this.redirect('/user/create');
+            return
         }
 
-        if (!this.request.body.username) {
-            this.throw("Missing username", 400);
+        if (!this.request.body.email) {
+            this.flash.danger = this.i18n.__('Missing %s', 'email');
+            this.redirect('/user/create');
+            return
         }
 
         if (!this.request.body.password) {
-            this.throw("Missing password", 400);
+            this.flash.danger = this.i18n.__('Missing %s', 'password');
+            this.redirect('/user/create');
+            return
         }
 
         let User = this.models.user;
+        let ctx = this;
 
-        console.log(this.request.body);
-
-        let user = new User({email: this.request.body.username, password: this.request.body.password});
-        user = yield user.save();
-
-        this.flash.success = 'The User is created';
-
-        this.redirect('/user')
+        yield function (done) {
+            User.create(ctx.request.body).exec(function (err, model) {
+                ctx.flash.success = ctx.i18n.__('The User is created');
+                ctx.redirect('/user');
+                done(err);
+            });
+        };
     },
 };

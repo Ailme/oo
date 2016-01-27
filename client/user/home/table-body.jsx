@@ -13,7 +13,7 @@ class TableBody extends React.Component {
   render() {
     let rows = this.props.data.map((function (row) {
       return (
-        <TableRow data={row} key={row.id} isSelectedAll={this.props.isSelectedAll}/>
+        <TableRow data={row} key={row.id} isSelectedAll={this.props.isSelectedAll} onEdit={this.props.onEdit} onDelete={this.props.onDelete}/>
       )
     }).bind(this));
 

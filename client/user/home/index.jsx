@@ -56,6 +56,48 @@ class HomePage extends React.Component {
       }).bind(this));
   }
 
+  onEdit = (e, eventKey, href) => {
+    let {history} = this.props;
+
+    history.pushState(null, `/update/${eventKey}`)
+  };
+
+  onDelete = (e, eventKey, href) => {
+    if (confirm("Продолжить удаление?")) {
+      this.sendDelete(eventKey);
+    }
+  };
+
+  sendDelete(id) {
+    fetch(api.delete(id), {
+        method: 'delete',
+        credentials: 'include',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      }
+    )
+      .then(response => {
+        return response.json();
+      }).then((json => {
+        this.setState({isLoading: false});
+
+        if (json.success) {
+          this.loadData();
+        } else {
+          alert(json.message);
+        }
+
+        return null;
+      }).bind(this))
+      .catch((err => {
+        this.setState({isLoading: false});
+        console.log(err);
+      }).bind(this));
+  }
+
   render() {
     return (
       <Grid fluid={true}>
@@ -64,7 +106,7 @@ class HomePage extends React.Component {
 
         <Row>
           <Col sm={12}>
-            <Table data={this.state.items}/>
+            <Table data={this.state.items} onEdit={this.onEdit} onDelete={this.onDelete}/>
           </Col>
         </Row>
       </Grid>

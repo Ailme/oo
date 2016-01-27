@@ -20,7 +20,8 @@ module.exports = function (app, passport) {
     // user
     .get("/user", userController.index)
     .post("/user", userController.create)
-    .put("/user/:id", userController.update)
+    .get("/user/:id", userController.info)
+    .post("/user/:id", userController.update)
     .del("/user/:id", userController.delete)
   ;
 

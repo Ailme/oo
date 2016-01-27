@@ -33,6 +33,7 @@
     "koa-swig-render": "0.0.4",
     "lodash": "^4.0.0",
     "material-colors": "^1.0.0",
+    "moment": "^2.11.1",
     "object-assign": "^4.0.1",
     "passport-local": "^1.0.0",
     "query-string": "^3.0.0",

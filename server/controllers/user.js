@@ -20,10 +20,31 @@ module.exports = {
     }
   },
 
+  info: function *() {
+    let User = this.models.user;
+    let ctx = this;
+    let user;
+
+    yield function (done) {
+      User.findOne()
+        .where({id: ctx.params.id})
+        .then(function (model) {
+          delete model.password;
+          user = model;
+
+          done();
+        })
+        .catch(function (err) {
+          done(err);
+        });
+    };
+
+    this.type = 'application/json';
+    this.body = user;
+  },
+
   create: function *() {
     this.type = 'application/json';
-
-    console.log(this.request.body);
 
     if (!this.request.body) {
       this.body = {
@@ -65,20 +86,33 @@ module.exports = {
   },
 
   update: function *() {
+    let ctx = this;
+    let User = this.models.user;
     this.type = 'application/json';
 
-    console.log(this.request);
+    yield function (done) {
+      let params = ctx.request.body;
 
-    this.body = {
-      success: true,
-      message: this.i18n.__('The User is updated')
+      if (params.password.trim().length === 0) {
+        delete params.password;
+      }
+
+      User.update({id: ctx.params.id}, params).exec((err, user) => {
+        this.body = {
+          success: !!!err,
+          message: !!!err ? this.i18n.__('The User is updated') : err,
+        };
+
+        done(err);
+      });
     };
   },
 
   delete: function *() {
-    this.type = 'application/json';
+    let ctx = this;
+    let User = this.models.user;
 
-    console.log(this.request);
+    this.type = 'application/json';
 
     this.body = {
       success: true,

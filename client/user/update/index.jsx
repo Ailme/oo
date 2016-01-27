@@ -13,7 +13,7 @@ class UpdatePage extends React.Component {
     this.state = {
       isLoading: false,
       errors: {},
-      id: null,
+      id: this.props.params.id,
       email: '',
       password: '',
     };
@@ -24,6 +24,9 @@ class UpdatePage extends React.Component {
   }
 
   componentWillMount() {
+    if (this.state.id) {
+      this.loadData();
+    }
   }
 
   getFormData() {
@@ -81,12 +84,46 @@ class UpdatePage extends React.Component {
         this.setState({isLoading: false});
 
         if (json.success) {
-          this.props.history.transitionTo('/');
+          const {history, location} = this.props;
+
+          if (location.state && location.state.nextPathname) {
+            history.replaceState(null, location.state.nextPathname)
+          } else {
+            history.replaceState(null, '/')
+          }
+
+          //this.props.history.replaceState(null, '/');
         } else {
           alert(json.message);
         }
 
-      return null;
+        return null;
+      }).bind(this))
+      .catch((err => {
+        this.setState({isLoading: false});
+        console.log(err);
+      }).bind(this));
+  }
+
+  loadData() {
+    this.setState({isLoading: true});
+
+    fetch(api.get(this.state.id), {
+        method: 'get',
+        credentials: 'include',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        }
+      }
+    )
+      .then(response => {
+        return response.json();
+      }).then((json => {
+        let state = json;
+
+        state.isLoading = false;
+        this.setState(state);
       }).bind(this))
       .catch((err => {
         this.setState({isLoading: false});
@@ -117,7 +154,7 @@ class UpdatePage extends React.Component {
             <form ref="form" onSubmit={!isLoading ? this.onSubmit : null}>
               <Input type="email" label="Email" placeholder="email" onChange={this.onChange} ref="email"
                      name="email" required={true} readOnly={!!this.state.id} hasFeedback bsStyle={emailStyle}
-                     help={emailHelp}/>
+                     help={emailHelp} value={this.state.email}/>
               <Input type="text" label="Password" placeholder="password" onChange={this.onChange}
                      ref="password" name="password" required={!!!this.state.id} minLength={6}
                      help={passwordHelp} hasFeedback bsStyle={passwordStyle}/>

@@ -30,7 +30,7 @@ class Table extends React.Component {
     return (
       <TableComponent striped={true} condensed={true} hover={true} responsive={true}>
         <TableHead onChangeSelectAll={this.onChangeSelectAll}/>
-        <TableBody data={this.props.data} isSelectedAll={this.state.isSelectedAll}/>
+        <TableBody data={this.props.data} isSelectedAll={this.state.isSelectedAll} onEdit={this.props.onEdit} onDelete={this.props.onDelete}/>
       </TableComponent>
     );
   }

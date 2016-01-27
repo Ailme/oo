@@ -1,13 +1,14 @@
 {
-	"Users": "Пользователи",
-	"Create": "Создать",
-	"Home": "Home",
-	"Log in": "Войти",
-	"Create User": "Создать пользователя",
-	"Email": "Email",
-	"Password": "Пароль",
-	"Missing %s": "Ошибка в поле %s",
-	" Email": " Email",
-	" Password": " Password",
-	"The User is created": "The User is created"
+  "Users": "Пользователи",
+  "Create": "Создать",
+  "Home": "Home",
+  "Log in": "Войти",
+  "Create User": "Создать пользователя",
+  "Email": "Email",
+  "Password": "Пароль",
+  "Missing %s": "Ошибка в поле %s",
+  " Email": " Email",
+  " Password": " Password",
+  "The User is created": "The User is created",
+  "The User is updated": "The User is updated"
 }

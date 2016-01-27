@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-    index: function *() {
-        yield this.render('site/index');
-    },
+  index: function *() {
+    yield this.render('site/index');
+  },
 };

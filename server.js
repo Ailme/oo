@@ -3,10 +3,18 @@
 const path = require("path");
 const app = require("koa")();
 const config = require('./config/main');
+const assets = require(config.path.assets + "/assets.json");
 
 app.name = config.name;
 app.keys = config.keys;
 app.env = config.env;
+
+app.use(function *(next) {
+    this.state.assets = assets;
+
+    this.state.xhr = (this.request.get('X-Requested-With') === 'XMLHttpRequest');
+    yield next;
+});
 
 require('koa-locale')(app);
 app.use(require('koa-bodyparser')(config.bodyparser));

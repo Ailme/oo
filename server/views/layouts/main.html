@@ -11,7 +11,8 @@
 
     {% block head %}
     <link media="all" type="text/css" rel="stylesheet" href="/vendor/bower/bootstrap/dist/css/bootstrap.min.css">
-    <link media="all" type="text/css" rel="stylesheet" href="/assets/main.css">
+    <link media="all" type="text/css" rel="stylesheet" href="/vendor/bower/font-awesome/css/font-awesome.min.css">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ assets.app.css }}">
     {% endblock %}
 
     <!-- Html5 shim and Respond.js IE8 support of Html5 elements and media queries -->
@@ -30,6 +31,8 @@
 {% block footer %}
 <script src="/vendor/bower/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{ assets.common.js }}"></script>
+<script src="{{ assets.app.js }}"></script>
 {% endblock %}
 </body>
 </html>

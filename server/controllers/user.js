@@ -111,12 +111,17 @@ module.exports = {
   delete: function *() {
     let ctx = this;
     let User = this.models.user;
-
     this.type = 'application/json';
 
-    this.body = {
-      success: true,
-      message: this.i18n.__('The User is updated')
+    yield function (done) {
+      User.destroy({id: ctx.params.id}).exec((err) => {
+        this.body = {
+          success: !!!err,
+          message: !!!err ? this.i18n.__('The User is deleted') : err,
+        };
+
+        done(err);
+      });
     };
   },
 };

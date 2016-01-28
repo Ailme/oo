@@ -1,29 +1,43 @@
 "use strict";
 
 const mount = require('koa-mount');
-const router = require("koa-router")();
 const config = require("./main");
 
 const siteController = require(config.path.controllers + '/site');
 const userController = require(config.path.controllers + '/user');
 const authController = require(config.path.controllers + '/auth');
 
-module.exports = function (app, passport) {
+let secured = function *(next) {
+  if (this.isAuthenticated()) {
+    yield next;
+  } else {
+    //this.status = 401;
+    this.redirect('/login');
+  }
+};
 
-  router
+module.exports = function (app, passport) {
+  let secureRouter = require("koa-router")();
+  let router = require("koa-router")();
+
+  // auth
+  secureRouter.get("/login", authController.login);
+  secureRouter.post('/login', authController.doLogin);
+
+  app
+    .use(secureRouter.routes())
+    .use(secureRouter.allowedMethods())
+    .use(secured);
+
+  router.all('/logout', authController.logout);
   // index
-    .get("/", siteController.index)
-    // auth
-    .get("/login", authController.login)
-    .post('/login', authController.doLogin)
-    .all('/logout', authController.logout)
-    // user
-    .get("/user", userController.index)
-    .post("/user", userController.create)
-    .get("/user/:id", userController.info)
-    .post("/user/:id", userController.update)
-    .del("/user/:id", userController.delete)
-  ;
+  router.get("/", siteController.index);
+  // user
+  router.get("/user", userController.index);
+  router.post("/user", userController.create);
+  router.get("/user/:id", userController.info);
+  router.post("/user/:id", userController.update);
+  router.del("/user/:id", userController.delete);
 
   app
     .use(router.routes())

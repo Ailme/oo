@@ -5,6 +5,7 @@ import React from 'react';
 import {Grid, PageHeader, Row, Col, Input, Button} from 'react-bootstrap';
 /*eslint-enable */
 import {api} from '../config';
+import Spinner from '../../components/spinner';
 
 class UpdatePage extends React.Component {
   constructor(props) {
@@ -162,7 +163,7 @@ class UpdatePage extends React.Component {
               <Button onClick={this.onCancel}>Cancel</Button>
               {" "}
               <Button type="submit" bsStyle="primary" disabled={isLoading}>
-                {isLoading ? <i className="fa fa-fw fa-spinner fa-pulse"/> : null} Save
+                <Spinner visible={isLoading}/> Save
               </Button>
             </form>
           </Col>

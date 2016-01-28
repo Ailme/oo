@@ -1,10 +1,20 @@
 "use strict";
 
+const passport = require('koa-passport');
+
 module.exports = {
   login: function *() {
-    this.state.title = 'login | ' + this.state.name;
+    let data = {};
 
-    yield this.render('site/login')
+    console.log(this.passport.user);
+
+    if (this.passport.user) {
+      data = {user: this.passport.user};
+    }
+
+    yield this.render('site/login', {
+      data: data
+    })
   },
   logout: function *() {
     this.flash.success = 'See you soon!';
@@ -12,6 +22,18 @@ module.exports = {
     this.redirect('/');
   },
   doLogin: function *() {
-    this.body = {success: true}
+    let ctx = this;
+
+    yield* passport.authenticate("local", function*(err, user, info) {
+      if (err) {
+        throw err;
+      }
+      if (user === false) {
+        ctx.status = 401;
+      } else {
+        yield ctx.login(user);
+        ctx.body = {user: user};
+      }
+    }).call(this);
   },
 };

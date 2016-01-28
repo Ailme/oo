@@ -6,7 +6,7 @@ import {render} from 'react-dom';
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 /*eslint-enable */
 import {path} from './config';
-import Page from '../components/page.jsx';
+import Page from '../components/page';
 import HomePage from "./home";
 import UpdatePage from "./update";
 

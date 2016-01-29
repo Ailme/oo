@@ -1,29 +1,31 @@
 "use strict";
 
-let passport = require('koa-passport');
+const co = require("co");
 
-module.exports = function (app, config) {
+module.exports = function (passport, app) {
   passport.serializeUser(function (user, done) {
     done(null, user.id)
   });
 
   passport.deserializeUser(function (id, done) {
-    let user = {id: 1, email: 'test4@mail.ru'};
-    done(null, user)
+    let User = app.context.models.user;
+    User.findOne({id: id}, done);
   });
 
   let LocalStrategy = require('passport-local').Strategy;
 
-  passport.use(new LocalStrategy(function (email, password, done) {
-    let user = {id: 1, email: 'test4@mail.ru'};
+  passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  }, function (username, password, done) {
+    let User = app.context.models.user;
 
-    if (email === 'test4@mail.ru' && password === '123456') {
-      done(null, user)
-    } else {
-      done(null, false)
-    }
+    co(function *() {
+      return yield User.matchUser(username, password);
+    }).then(function (user) {
+      done(null, user);
+    }).catch(function (err) {
+      done(err);
+    });
   }));
-
-
-  return passport
 };

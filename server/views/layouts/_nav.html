@@ -10,14 +10,22 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
+            <li><a href="/test">Test</a></li>
+
             {% if !isGuest %}
             <li><a href="/">{{ __("Home") }}</a></li>
             {% endif %}
+
+            {% if !isGuest %}
+            <li><a href="/user">{{ __("Users") }}</a></li>
+            {% endif %}
+
             {% if isGuest %}
             <li><a href="/login">{{ __("Log in") }}</a></li>
             {% endif %}
+
             {% if !isGuest %}
-            <li><a href="/user">{{ __("Users") }}</a></li>
+            <li><a href="/logout">{{ __("Log out") }}</a></li>
             {% endif %}
         </ul>
     </div>

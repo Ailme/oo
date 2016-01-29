@@ -3,6 +3,7 @@
 /*eslint-disable */
 import React from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap';
+import {Toggle} from 'belle';
 import classNames from 'classnames';
 import moment from 'moment';
 /*eslint-enable */
@@ -29,6 +30,12 @@ class TableRow extends React.Component {
     })
   };
 
+  onChangeStatus = (value) => {
+    if (this.props.onChangeStatus) {
+      this.props.onChangeStatus(this.props.data.id, value);
+    }
+  };
+
   render() {
     let item = this.props.data;
     let trClasses = classNames({
@@ -44,19 +51,21 @@ class TableRow extends React.Component {
         </td>
         <td width="100">
           <DropdownButton bsSize="xsmall" title={item.id} id={`dropdown-${item.id}`}>
-            <MenuItem eventKey={item.id} onSelect={this.props.onEdit}>Edit</MenuItem>
-            <MenuItem eventKey={item.id}>Banned</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={item.id} onSelect={this.props.onDelete}>Delete</MenuItem>
+            <MenuItem eventKey={item.id} onSelect={this.props.onEdit} className="text-primary">Edit</MenuItem>
+            <MenuItem divider/>
+            <MenuItem eventKey={item.id} onSelect={this.props.onDelete} className="text-danger">Delete</MenuItem>
           </DropdownButton>
         </td>
+        <td>
+          <Toggle defaultValue={item.active} onUpdate={this.onChangeStatus}/>
+        </td>
+        <td>{item.username}</td>
         <td>{item.email}</td>
         <td>
           {createdAt.format("DD.MM.YYYY HH:mm")}
           {" / "}
           {updatedAt.format("DD.MM.YYYY HH:mm")}
         </td>
-        <td>{item.password}</td>
       </tr>
     );
   }

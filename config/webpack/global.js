@@ -27,8 +27,9 @@ module.exports = function (_path) {
     cache: true,
     context: PATH.app,
     entry: {
-      app: ['react', 'react-dom', 'react-bootstrap', 'react-router', PATH.app],
+      app: ['react', 'react-dom', 'react-bootstrap', 'react-router', 'belle', PATH.app],
       user: PATH.app + '/user',
+      login: PATH.app + '/site/login.jsx',
     },
     output: {
       path: PATH.output,

@@ -13,6 +13,7 @@
   "author": "Alexandr Tumaykin <alexandrtumaykin@gmail.com>",
   "private": true,
   "dependencies": {
+    "belle": "^2.0.3",
     "history": "^1.17.0",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
@@ -79,6 +80,7 @@
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "json-loader": "^0.5.4",
+    "koa-livereload": "^0.1.23",
     "postcss": "^5.0.14",
     "postcss-loader": "^0.8.0",
     "precss": "^1.4.0",

@@ -23,9 +23,10 @@ class TableHead extends React.Component {
           <input type="checkbox" onChange={this.onChangeSelectAll}/>
         </th>
         <th>ID</th>
+        <th></th>
+        <th>Username</th>
         <th>Email</th>
         <th>Created/updated</th>
-        <th>password</th>
       </tr>
       </thead>
     );

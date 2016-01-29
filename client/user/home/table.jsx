@@ -28,9 +28,9 @@ class Table extends React.Component {
 
   render() {
     return (
-      <TableComponent striped={true} condensed={true} hover={true} responsive={true}>
+      <TableComponent striped={true} condensed={true} hover={true} responsive={false}>
         <TableHead onChangeSelectAll={this.onChangeSelectAll}/>
-        <TableBody data={this.props.data} isSelectedAll={this.state.isSelectedAll} onEdit={this.props.onEdit} onDelete={this.props.onDelete}/>
+        <TableBody data={this.props.data} isSelectedAll={this.state.isSelectedAll} onEdit={this.props.onEdit} onDelete={this.props.onDelete} onChangeStatus={this.props.onChangeStatus}/>
       </TableComponent>
     );
   }

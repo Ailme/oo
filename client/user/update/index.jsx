@@ -17,6 +17,7 @@ class UpdatePage extends React.Component {
       id: this.props.params.id,
       email: '',
       password: '',
+      username: '',
     };
   }
 
@@ -33,7 +34,8 @@ class UpdatePage extends React.Component {
   getFormData() {
     return {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      username: this.state.username,
     };
   }
 
@@ -93,7 +95,6 @@ class UpdatePage extends React.Component {
             history.replaceState(null, '/')
           }
 
-          //this.props.history.replaceState(null, '/');
         } else {
           alert(json.message);
         }
@@ -146,6 +147,8 @@ class UpdatePage extends React.Component {
     let emailHelp = this.state.errors['email'];
     let passwordStyle = this.getStyleInput('password');
     let passwordHelp = this.state.errors['password'] || 'Мин. длина 6 символов';
+    let usernameStyle = this.getStyleInput('username');
+    let usernameHelp = this.state.errors['username'] || 'Мин. длина 6 символов';
 
     return (
       <Grid>
@@ -153,12 +156,15 @@ class UpdatePage extends React.Component {
         <Row>
           <Col sm={12}>
             <form ref="form" onSubmit={!isLoading ? this.onSubmit : null}>
+              <Input type="text" label="Username" placeholder="username" onChange={this.onChange} ref="username"
+                     name="username" required={true} hasFeedback bsStyle={usernameStyle}
+                     help={usernameHelp} value={this.state.username} minLength={6} autoComplete="off"/>
               <Input type="email" label="Email" placeholder="email" onChange={this.onChange} ref="email"
                      name="email" required={true} readOnly={!!this.state.id} hasFeedback bsStyle={emailStyle}
-                     help={emailHelp} value={this.state.email}/>
+                     help={emailHelp} value={this.state.email} autoComplete="off"/>
               <Input type="text" label="Password" placeholder="password" onChange={this.onChange}
                      ref="password" name="password" required={!!!this.state.id} minLength={6}
-                     help={passwordHelp} hasFeedback bsStyle={passwordStyle}/>
+                     help={passwordHelp} hasFeedback bsStyle={passwordStyle} autoComplete="off"/>
 
               <Button onClick={this.onCancel}>Cancel</Button>
               {" "}

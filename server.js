@@ -4,6 +4,7 @@ const path = require("path");
 const app = require("koa")();
 const config = require('./config/main');
 const assets = require(config.path.assets + "/assets.json");
+const passport = require('koa-passport');
 
 app.name = config.name;
 app.keys = config.keys;
@@ -17,7 +18,7 @@ app.use(require('koa-static')(config.static.directory, config.static));
 app.use(require('koa-generic-session')(config.session));
 app.use(require('koa-flash')(config.flash));
 
-let passport = require('./config/auth')(app, config.auth);
+require('./config/auth')(passport, app);
 app.use(passport.initialize());
 app.use(passport.session());
 

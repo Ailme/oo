@@ -2,38 +2,47 @@
 
 const passport = require('koa-passport');
 
-module.exports = {
-  login: function *() {
-    let data = {};
+module.exports.login = login;
+module.exports.logout = logout;
+module.exports.doLogin = doLogin;
 
-    console.log(this.passport.user);
+function *login() {
+  if (this.passport.user) {
+    this.redirect('/');
+  }
 
-    if (this.passport.user) {
-      data = {user: this.passport.user};
+  yield this.render('site/login')
+}
+
+function *logout() {
+  this.logout();
+  this.session = null;
+  this.status = 204;
+
+  this.redirect('/login');
+}
+
+function *doLogin() {
+  this.type = 'application/json';
+
+  let ctx = this;
+
+  yield* passport.authenticate("local", function*(err, user, info) {
+    if (err) {
+      throw err;
     }
 
-    yield this.render('site/login', {
-      data: data
-    })
-  },
-  logout: function *() {
-    this.flash.success = 'See you soon!';
+    if (user === false) {
+      ctx.body = {
+        success: false,
+        message: 'erorr'
+      };
+    } else {
+      yield ctx.login(user);
 
-    this.redirect('/');
-  },
-  doLogin: function *() {
-    let ctx = this;
-
-    yield* passport.authenticate("local", function*(err, user, info) {
-      if (err) {
-        throw err;
-      }
-      if (user === false) {
-        ctx.status = 401;
-      } else {
-        yield ctx.login(user);
-        ctx.body = {user: user};
-      }
-    }).call(this);
-  },
-};
+      ctx.body = {
+        success: true,
+      };
+    }
+  }).call(this);
+}

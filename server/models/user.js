@@ -1,74 +1,91 @@
-"use strict";
+'use strict';
 
-//https://github.com/balderdashy/waterline-docs
-const Waterline = require('waterline');
 const passLib = require('../lib/password');
 
-let User = Waterline.Collection.extend({
-  // Define a custom table name
-  tableName: 'oo_users',
-  identity: 'user',
-  // Set schema true/false for adapters that support schemaless
-  schema: true,
-  connection: 'mysql',
-  attributes: {
+module.exports = function (sequelize, DataTypes) {
+  let User = sequelize.define("user", {
     id: {
-      type: 'integer',
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     username: {
-      type: 'string',
-      required: true,
-      minLength: 6,
-      size: 128,
+      type: DataTypes.STRING(60),
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [4, 60],
+      },
     },
     email: {
-      type: 'string',
-      required: true,
+      type: DataTypes.STRING(64),
       unique: true,
-      email: true,
-      size: 64
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isEmail: true,
+        len: [4, 64],
+      },
     },
     password: {
-      type: 'string',
+      type: DataTypes.STRING(128),
       required: true,
-      minLength: 6,
-      maxLength: 21,
-      size: 128,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     active: {
-      type: 'boolean',
-      defaultsTo: true
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
     },
-  },
-  //custom validation rules
-  types: {},
-  beforeCreate: function (values, next) {
-    passLib.hash2(values.password, function (err, hash) {
-      values.password = hash;
-      next();
-    });
-  },
-  matchUser: function *(email, password) {
-    let user = yield function (done) {
-      this.findOne({'email': email.toLowerCase()}).exec(done);
-    }.bind(this);
+  }, {
+    tableName: 'oo_users',
+    engine: 'InnoDB',
+    timestamps: true,
+    indexes: [],
+    defaultScope: {
+      order: 'username ASC'
+    },
+    getterMethods: {},
 
-    if (!user) {
-      throw new Error('User not found');
-    }
+    setterMethods: {
+      password: function (value) {
+        this.setDataValue('password', passLib.hash2Sync(value));
+      },
+    },
+    classMethods: {
+      matchUser: function *(username, password) {
+        let user = yield this.findOne({
+          where: {
+            $or: [
+              {'email': username.toLowerCase()},
+              {'username': username.toLowerCase()}
+            ]
+          }
+        });
 
-    let check = yield function (done) {
-      passLib.verify2(password, user.password, done);
-    };
+        if (!user) {
+          throw new Error('User not found');
+        }
 
-    if (check) {
-      return user;
-    }
+        let check = yield function (done) {
+          passLib.verify2(password, user.password, done);
+        };
 
-    throw new Error('Password does not match');
-  }
-});
+        if (check) {
+          return user;
+        }
 
-module.exports = User;
+        throw new Error('Password does not match');
+      },
+      associate: function (models) {
+
+      }
+    },
+    instanceMethods: {},
+  });
+
+  return User;
+};

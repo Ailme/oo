@@ -1,40 +1,36 @@
 "use strict";
 
-module.exports.index = index;
-module.exports.info = info;
-module.exports.create = create;
-module.exports.update = update;
-module.exports.delete = remove;
-module.exports.updateStatus = updateStatus;
-
+const db = require('../models');
 
 function *index() {
-  if (!this.state.xhr) {
+  if (!this.state.isAjax) {
     yield this.render('user/index');
   } else {
-    let User = this.models.user;
+    let User = db.user;
 
     this.type = 'application/json';
     this.body = yield function (done) {
-      User.find().exec(done);
+      User.all().then(function (rows) {
+        done(null, rows);
+      }).catch(done);
     };
   }
 }
 
 function *info() {
-  let User = this.models.user;
+  let User = db.user;
   let ctx = this;
 
   this.type = 'application/json';
   this.body = yield function (done) {
-    User.findOne()
-      .where({id: ctx.params.id})
-      .then(function (model) {
-        delete model.password;
+    User.findById(ctx.params.id)
+      .then(function (user) {
+        return user;
+      }).then(function (user) {
+      delete user.password;
 
-        done(null, model);
-      })
-      .catch(done);
+      done(null, user);
+    }).catch(done);
   };
 }
 
@@ -65,11 +61,15 @@ function *create() {
     return
   }
 
-  let User = this.models.user;
+  let User = db.user;
   let ctx = this;
 
   yield function (done) {
-    User.create(ctx.request.body, done);
+    User.create(ctx.request.body).then(function (user) {
+      return user;
+    }).then(function (user) {
+      done(null, user)
+    }).catch(done);
   };
 
   this.body = {
@@ -84,7 +84,7 @@ function *create() {
  */
 function *update() {
   let ctx = this;
-  let User = this.models.user;
+  let User = db.user;
   let params = this.request.body;
 
   if (params.password.trim().length === 0) {
@@ -93,16 +93,7 @@ function *update() {
 
   this.type = 'application/json';
 
-  this.body = yield function (done) {
-    User.update({id: ctx.params.id}, params).exec((err, user) => {
-      let body = {
-        success: !!!err,
-        message: !!!err ? this.i18n.__('The User is updated') : err,
-      };
-
-      done(err, body);
-    });
-  };
+  this.body = yield User.update(params, {where: {id: ctx.params.id}});
 }
 
 /**
@@ -111,19 +102,10 @@ function *update() {
  */
 function *remove() {
   let ctx = this;
-  let User = this.models.user;
+  let User = db.user;
   this.type = 'application/json';
 
-  this.body = yield function (done) {
-    User.destroy({id: ctx.params.id}, (err) => {
-      let body = {
-        success: !!!err,
-        message: !!!err ? this.i18n.__('The User is deleted') : err,
-      };
-
-      done(err, body);
-    });
-  };
+  this.body = yield User.destroy({where: {id: ctx.params.id}});
 }
 
 /**
@@ -132,19 +114,34 @@ function *remove() {
  */
 function *updateStatus() {
   let ctx = this;
-  let User = this.models.user;
+  let User = db.user;
   let params = this.request.body;
 
   this.type = 'application/json';
 
   this.body = yield function (done) {
-    User.update({id: ctx.params.id}, {active: params.value}).exec((err, user) => {
+    User.update({active: params.value}, {where: {id: ctx.params.id}})
+      .then(function (user) {
+        let body = {
+          success: true,
+          message: ctx.i18n.__('The User is updated'),
+        };
+
+        done(null, body);
+      }).catch(function (err) {
       let body = {
-        success: !!!err,
-        message: !!!err ? this.i18n.__('The User is updated') : err,
+        success: false,
+        message: err,
       };
 
       done(err, body);
     });
   };
 }
+
+module.exports.index = index;
+module.exports.info = info;
+module.exports.create = create;
+module.exports.update = update;
+module.exports.delete = remove;
+module.exports.updateStatus = updateStatus;

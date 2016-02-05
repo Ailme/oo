@@ -2,9 +2,13 @@
 
 const passport = require('koa-passport');
 
-module.exports.login = login;
-module.exports.logout = logout;
-module.exports.doLogin = doLogin;
+function *logout() {
+  this.logout();
+  this.session = null;
+
+  this.type = 'application/json';
+  this.body = true;
+}
 
 function *login() {
   if (this.passport.user) {
@@ -12,14 +16,6 @@ function *login() {
   }
 
   yield this.render('site/login')
-}
-
-function *logout() {
-  this.logout();
-  this.session = null;
-  this.status = 204;
-
-  this.redirect('/login');
 }
 
 function *doLogin() {
@@ -34,15 +30,22 @@ function *doLogin() {
 
     if (user === false) {
       ctx.body = {
-        success: false,
-        message: 'erorr'
+        error: 'error'
       };
     } else {
       yield ctx.login(user);
-
-      ctx.body = {
-        success: true,
-      };
+      ctx.body = user;
     }
   }).call(this);
 }
+
+function *getCurrentUser() {
+  this.type = 'application/json';
+
+  this.body = this.passport.user || false;
+}
+
+module.exports.logout = logout;
+module.exports.login = login;
+module.exports.doLogin = doLogin;
+module.exports.getCurrentUser = getCurrentUser;

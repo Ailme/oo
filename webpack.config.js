@@ -9,10 +9,10 @@ const _ = require('lodash');
  */
 const _configs = {
   //global section
-  global: require(__dirname + '/config/webpack/global'),
+  global: require(__dirname + '/client/config/webpack/global'),
   //config by enviroments
-  production: require(__dirname + '/config/webpack/production'),
-  development: require(__dirname + '/config/webpack/development')
+  production: require(__dirname + '/client/config/webpack/production'),
+  development: require(__dirname + '/client/config/webpack/development')
 };
 
 /**

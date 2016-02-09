@@ -15,6 +15,7 @@
   "dependencies": {
     "async": "^1.5.2",
     "belle": "^2.0.3",
+    "excel": "^0.1.4",
     "history": "^1.17.0",
     "koa": "^1.1.2",
     "koa-bodyparser": "^2.0.1",
@@ -37,6 +38,7 @@
     "material-colors": "^1.0.0",
     "moment": "^2.11.1",
     "mysql": "^2.10.2",
+    "node-xlsx": "^0.6.0",
     "object-assign": "^4.0.1",
     "passport-local": "^1.0.0",
     "query-string": "^3.0.0",
@@ -44,7 +46,8 @@
     "react-bootstrap": "^0.28.2",
     "react-dom": "^0.14.6",
     "react-router": "^1.0.3",
-    "sequelize": "^3.19.2"
+    "sequelize": "^3.19.2",
+    "xlsx": "^0.8.0"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.2.0",

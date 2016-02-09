@@ -44,6 +44,7 @@ module.exports = function (sequelize, DataTypes) {
     tableName: 'oo_users',
     engine: 'InnoDB',
     timestamps: true,
+    underscored: true,
     indexes: [],
     defaultScope: {
       order: 'username ASC'

@@ -98,50 +98,15 @@ class HomePage extends React.Component {
       }).bind(this));
   }
 
-  onChangeStatus = (id, value) => {
-    this.setState({isLoading: true});
-
-    fetch(api.updateStatus(id), {
-        method: 'post',
-        credentials: 'include',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(value)
-      }
-    )
-      .then(response => {
-        return response.json();
-      }).then((json => {
-        this.setState({isLoading: false});
-
-        if (json.success) {
-          this.loadData();
-        } else {
-          let message = json.message || json.error;
-          alert(message);
-        }
-
-        return null;
-      }).bind(this))
-      .catch((err => {
-        this.setState({isLoading: false});
-        console.log(err);
-      }).bind(this));
-  };
-
   render() {
     return (
       <Grid fluid={true}>
-        <PageHeader>Users</PageHeader>
+        <PageHeader>Devices</PageHeader>
         <Toolbar />
 
         <Row>
           <Col sm={12}>
-            <Table data={this.state.items} onEdit={this.onEdit} onDelete={this.onDelete}
-                   onChangeStatus={this.onChangeStatus}/>
+            <Table data={this.state.items} onEdit={this.onEdit} onDelete={this.onDelete}/>
           </Col>
         </Row>
       </Grid>

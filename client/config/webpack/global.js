@@ -29,6 +29,7 @@ module.exports = function (_path) {
     entry: {
       app: ['react', 'react-dom', 'react-bootstrap', 'react-router', 'belle', PATH.app],
       user: PATH.app + '/pages/user',
+      device: PATH.app + '/pages/device',
       login: PATH.app + '/pages/login',
     },
     output: {

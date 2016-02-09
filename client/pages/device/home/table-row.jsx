@@ -3,7 +3,6 @@
 /*eslint-disable */
 import React from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap';
-import {Toggle} from 'belle';
 import classNames from 'classnames';
 import moment from 'moment';
 /*eslint-enable */
@@ -55,11 +54,8 @@ class TableRow extends React.Component {
             <MenuItem eventKey={item.id} onSelect={this.props.onDelete} className="text-danger">Delete</MenuItem>
           </DropdownButton>
         </td>
-        <td>
-          <Toggle defaultValue={item.active} onUpdate={this.onChangeStatus}/>
-        </td>
-        <td>{item.username}</td>
-        <td>{item.email}</td>
+        <td>{item.clientName}</td>
+        <td>{item.client_id}</td>
         <td>
           {createdAt.format("DD.MM.YYYY HH:mm")}
           {" / "}

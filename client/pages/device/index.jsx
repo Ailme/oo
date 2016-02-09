@@ -14,9 +14,6 @@ render((
   <Router history={browserHistory}>
     <Route path="/" component={Application}>
       <IndexRoute component={HomePage}/>
-      <Route path="/create" component={UpdatePage}/>
-      <Route path="/update/:id" component={UpdatePage}/>
-      <Route path="/:date" component={HomePage}/>
       <Route path="*" component={NoMatch}/>
     </Route>
   </Router>

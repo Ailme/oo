@@ -9,7 +9,7 @@ let _initCalled = false;
 const URL = {
   login: '/login',
   logout: '/logout',
-  checkUser: '/getCurrentUser',
+  checkUser: '/api/v1/getCurrentUser',
 };
 
 const AuthStore = {

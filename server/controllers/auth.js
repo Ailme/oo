@@ -39,13 +39,6 @@ function *doLogin() {
   }).call(this);
 }
 
-function *getCurrentUser() {
-  this.type = 'application/json';
-
-  this.body = this.passport.user || false;
-}
-
 module.exports.logout = logout;
 module.exports.login = login;
 module.exports.doLogin = doLogin;
-module.exports.getCurrentUser = getCurrentUser;

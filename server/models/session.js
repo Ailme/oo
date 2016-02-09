@@ -13,11 +13,13 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: true,
     },
     userId: {
+      field: 'user_id',
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: true,
     },
   }, {
     tableName: 'oo_sessions',
     engine: 'MYISAM',
+    underscored: true,
   });
 };

@@ -4,6 +4,7 @@ const path = require('./path');
 const env = process.env.NODE_ENV || 'development';
 const port = process.env.PORT || 3000;
 const host = 'http://localhost' + (port != 80 ? ':' + port : '');
+const assets = require(path.assets + "/assets.json");
 
 const DEBUG = env !== 'production';
 
@@ -19,7 +20,9 @@ module.exports = {
   templates: {
     root: path.views,
     cache: DEBUG ? "memory" : false,
-    locals: {}
+    locals: {
+      assets: assets
+    }
   },
   //https://github.com/koajs/static#options
   static: {},

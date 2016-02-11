@@ -21,12 +21,10 @@ function *info() {
   this.body = yield function (done) {
     User.findById(ctx.params.id)
       .then(function (user) {
-        return user;
-      }).then(function (user) {
-      delete user.password;
+        delete user.password;
 
-      done(null, user);
-    }).catch(done);
+        done(null, user);
+      }).catch(done);
   };
 }
 
@@ -89,7 +87,24 @@ function *update() {
 
   this.type = 'application/json';
 
-  this.body = yield User.update(params, {where: {id: ctx.params.id}});
+  this.body = yield function (done) {
+    User.update(params, {where: {id: ctx.params.id}})
+      .then(function (model) {
+        let body = {
+          success: true,
+          message: ctx.i18n.__('The User is updated'),
+        };
+
+        done(null, body);
+      }).catch(function (err) {
+      let body = {
+        success: false,
+        message: err,
+      };
+
+      done(err, body);
+    });
+  };
 }
 
 /**

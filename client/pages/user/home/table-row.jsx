@@ -50,9 +50,9 @@ class TableRow extends React.Component {
         </td>
         <td width="100">
           <DropdownButton bsSize="xsmall" title={item.id} id={`dropdown-${item.id}`}>
-            <MenuItem eventKey={item.id} onSelect={this.props.onEdit} className="text-primary">Edit</MenuItem>
+            <MenuItem eventKey={item.id} onSelect={this.props.onEdit} className="text-primary">Изменить</MenuItem>
             <MenuItem divider/>
-            <MenuItem eventKey={item.id} onSelect={this.props.onDelete} className="text-danger">Delete</MenuItem>
+            <MenuItem eventKey={item.id} onSelect={this.props.onDelete} className="text-danger">Удалить</MenuItem>
           </DropdownButton>
         </td>
         <td>

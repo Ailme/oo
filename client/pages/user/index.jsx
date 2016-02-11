@@ -6,7 +6,7 @@ import {render} from 'react-dom';
 import {Router, Route, browserHistory, IndexRoute} from 'react-router';
 /*eslint-enable */
 import Application from '../../application';
-import NoMatch from "../no-match";
+import NoMatch from "../_no-match";
 import HomePage from "./home";
 import UpdatePage from "./update";
 

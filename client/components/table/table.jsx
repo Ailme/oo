@@ -33,6 +33,7 @@ class Table extends React.Component {
 
     let tableClasses = classNames({
       'table': true,
+      'table-color-columns': true,
       'table-striped': this.props.striped,
       'table-bordered': this.props.bordered,
       'table-condensed': this.props.condensed,

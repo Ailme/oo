@@ -24,9 +24,9 @@ class TableHead extends React.Component {
         </th>
         <th>ID</th>
         <th></th>
-        <th>Username</th>
+        <th>ФИО</th>
         <th>Email</th>
-        <th>Created/updated</th>
+        <th>Создан/изменен</th>
       </tr>
       </thead>
     );

@@ -18,5 +18,16 @@ const db = require('../server/models');
 //  //db.sequelize.close();
 //});
 
-db.device.sync({force: true});
+//db.area.sync({force: true});
+//db.device.sync({force: true});
+db.maintenance.sync({force: true});
+db.model.sync({force: true});
+db.placing.sync({force: true});
+//db.region.sync({force: true});
+db.serviceCategory.sync({force: true});
+db.serviceType.sync({force: true});
+db.type.sync({force: true});
+db.vendor.sync({force: true});
+db.zone.sync({force: true});
+db.zoneUser.sync({force: true});
 //db.session.sync({force: true});

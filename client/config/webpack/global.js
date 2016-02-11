@@ -7,6 +7,8 @@ const AssetsPlugin = require('assets-webpack-plugin');
 const rimraf = require("rimraf");
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * Global webpack config
@@ -23,15 +25,24 @@ module.exports = function (_path) {
     node: _path + "/node_modules"
   };
 
+  let entry = {
+    app: ['react', 'react-dom', 'react-bootstrap', 'react-router', 'belle', PATH.app],
+  };
+
+  // read all models and import them into the "db" object
+  fs
+    .readdirSync(PATH.app + "/pages")
+    .filter(function (file) {
+      return (file.indexOf('.') !== 0) && (file !== 'index.js') && (file.indexOf('_') !== 0);
+    })
+    .forEach(function (file) {
+      entry[file] = PATH.app + "/pages/" + file;//path.join(PATH.app + "/pages", file);
+    });
+
   return {
     cache: true,
     context: PATH.app,
-    entry: {
-      app: ['react', 'react-dom', 'react-bootstrap', 'react-router', 'belle', PATH.app],
-      user: PATH.app + '/pages/user',
-      device: PATH.app + '/pages/device',
-      login: PATH.app + '/pages/login',
-    },
+    entry: entry,
     output: {
       path: PATH.output,
       publicPath: PATH.public,

@@ -1,0 +1,14 @@
+{% extends '../layouts/main.html' %}
+
+{% block title %}
+{{ __("Placings") }}
+{% endblock %}
+
+{% block footer %}
+{% parent %}
+<script src="{{ assets.placing.js }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content"></div>
+{% endblock %}

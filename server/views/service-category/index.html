@@ -1,0 +1,14 @@
+{% extends '../layouts/main.html' %}
+
+{% block title %}
+{{ __("Services Categories") }}
+{% endblock %}
+
+{% block footer %}
+{% parent %}
+<script src="{{ assets.serviceCategory.js }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content"></div>
+{% endblock %}

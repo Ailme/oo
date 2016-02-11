@@ -10,14 +10,20 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li><a href="/test">Test</a></li>
-
             {% if !isGuest %}
             <li><a href="/">{{ __("Home") }}</a></li>
-            {% endif %}
-
-            {% if !isGuest %}
             <li><a href="/user">{{ __("Users") }}</a></li>
+            <li><a href="/region">{{ __("Regions") }}</a></li>
+            <li><a href="/area">{{ __("Areas") }}</a></li>
+            <li><a href="/placing">{{ __("Placings") }}</a></li>
+            <li><a href="/zone">{{ __("Zones") }}</a></li>
+            <li><a href="/zone-user">{{ __("Zones Users") }}</a></li>
+            <li><a href="/vendor">{{ __("Vendors") }}</a></li>
+            <li><a href="/model">{{ __("Models") }}</a></li>
+            <li><a href="/type">{{ __("Types") }}</a></li>
+            <li><a href="/service-type">{{ __("Services Types") }}</a></li>
+            <li><a href="/service-category">{{ __("Services Categories") }}</a></li>
+            <li><a href="/maintenance">{{ __("Maintenances") }}</a></li>
             {% endif %}
 
             {% if isGuest %}

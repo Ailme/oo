@@ -33,9 +33,9 @@ class UpdatePage extends React.Component {
 
   getFormData() {
     return {
-      email: this.state.email,
-      password: this.state.password,
-      username: this.state.username,
+      email: this.state.email.trim(),
+      password: this.state.password.trim(),
+      username: this.state.username.trim(),
     };
   }
 

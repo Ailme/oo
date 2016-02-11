@@ -1,5 +1,8 @@
 @import "~material-colors/dist/colors"
 
+// цвета для колонок таблицы отчета SLA с группировкой по месяцам
+tblColumnColors = (md-red-50 md-pink-50 md-purple-50 md-deep-purple-50 md-indigo-50 md-blue-50 md-light-blue-50 md-cyan-50 md-teal-50 md-green-50 md-light-green-50 md-lime-50 md-yellow-50 md-amber-50 md-orange-50 md-deep-orange-50 md-brown-50 md-grey-50 md-blue-grey-50);
+
 html
   position relative
   min-height 100%
@@ -11,3 +14,19 @@ body
 tr.selected
   td
     background-color md-teal-100
+
+.table-color-columns
+  tr
+    for color, i in tblColumnColors
+      td:nth-child(19n+{i})
+        background-color color
+        border 1px solid darken(color, 10%)
+
+      th:nth-child(19n+{i})
+        background-color darken(color, 10%)
+        border 1px solid darken(color, 20%)
+
+.table-color-columns.table-striped tr:nth-child(odd)
+  for color, i in tblColumnColors
+    td:nth-child(19n{i})
+      background-color lighten(color, 3%)

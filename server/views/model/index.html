@@ -1,0 +1,14 @@
+{% extends '../layouts/main.html' %}
+
+{% block title %}
+{{ __("Models") }}
+{% endblock %}
+
+{% block footer %}
+{% parent %}
+<script src="{{ assets.model.js }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content"></div>
+{% endblock %}

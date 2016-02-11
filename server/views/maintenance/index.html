@@ -1,0 +1,14 @@
+{% extends '../layouts/main.html' %}
+
+{% block title %}
+{{ __("Maintenance") }}
+{% endblock %}
+
+{% block footer %}
+{% parent %}
+<script src="{{ assets.maintenance.js }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content"></div>
+{% endblock %}

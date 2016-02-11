@@ -1,0 +1,14 @@
+{% extends '../layouts/main.html' %}
+
+{% block title %}
+{{ __("Types") }}
+{% endblock %}
+
+{% block footer %}
+{% parent %}
+<script src="{{ assets.type.js }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="content"></div>
+{% endblock %}

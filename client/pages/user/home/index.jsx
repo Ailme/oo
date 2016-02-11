@@ -52,7 +52,7 @@ class HomePage extends React.Component {
       }).bind(this))
       .catch((err => {
         this.setState({isLoading: false});
-        console.log(err);
+        console.error(err);
       }).bind(this));
   }
 
@@ -94,7 +94,7 @@ class HomePage extends React.Component {
       }).bind(this))
       .catch((err => {
         this.setState({isLoading: false});
-        console.log(err);
+        console.error(err);
       }).bind(this));
   }
 
@@ -128,14 +128,14 @@ class HomePage extends React.Component {
       }).bind(this))
       .catch((err => {
         this.setState({isLoading: false});
-        console.log(err);
+        console.error(err);
       }).bind(this));
   };
 
   render() {
     return (
       <Grid fluid={true}>
-        <PageHeader>Users</PageHeader>
+        <PageHeader>Пользователи</PageHeader>
         <Toolbar />
 
         <Row>

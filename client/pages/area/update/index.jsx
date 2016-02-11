@@ -148,8 +148,8 @@ class UpdatePage extends React.Component {
         <Row>
           <Col sm={12}>
             <form ref="form" onSubmit={!isLoading ? this.onSubmit : null}>
-              <Input type="text" label="Название" placeholder="Название" onChange={this.onChange}
-                     ref="name" name="name" required={true} hasFeedback bsStyle={nameStyle}
+              <Input type="text" label="Название" placeholder="Название" onChange={this.onChange} ref="name"
+                     name="name" required={true} hasFeedback bsStyle={nameStyle}
                      help={nameHelp} value={this.state.name} minLength={6} autoComplete="off"/>
 
               <Button onClick={this.onCancel}>Отмена</Button>

@@ -99,7 +99,8 @@ module.exports = function (sequelize, DataTypes) {
       default: 0,
     },
   }, {
-    tableName: 'oo_maintenances',
+    //tableName: 'oo_maintenances',
+    tableName: 'service_maintanances',
     engine: 'InnoDB',
     paranoid: false,
     timestamps: false,

@@ -34,7 +34,7 @@ SequelizeStore.prototype.load = function *(sid) {
  */
 SequelizeStore.prototype.set = SequelizeStore.prototype.save = function *(sid, blob) {
   try {
-    let userId = blob.passport.user || null;
+    let userId = (blob.passport && blob.passport.user) ? blob.passport.user : null;
     if (typeof blob === 'object') blob = JSON.stringify(blob);
     let data = {
       id: sid,

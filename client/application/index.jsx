@@ -4,6 +4,7 @@
 import React, {PropTypes} from 'react';
 /*eslint-enable */
 import AuthStore from '../store/auth';
+import Navigation from './navigation';
 
 export default class App extends React.Component {
 
@@ -53,6 +54,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
+        <Navigation {...this.props} />
         {this.props.children}
       </div>
     );

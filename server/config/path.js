@@ -10,6 +10,8 @@ module.exports = {
   views: path.resolve(__dirname, '../views'),
   locales: path.resolve(__dirname, '../locales'),
   lib: path.resolve(__dirname, '../lib'),
+  storage: path.resolve(__dirname, '../../storage'),
+  tmp: path.resolve(__dirname, '../../storage/tmp'),
   public: path.resolve(__dirname, '../../public'),
   assets: path.resolve(__dirname, '../../public/assets'),
 };

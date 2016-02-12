@@ -112,8 +112,42 @@ function *remove() {
   this.body = yield Model.destroy({where: {id: ctx.params.id}});
 }
 
+function *importExcel() {
+  const parse = require('co-busboy');
+  const fs = require('fs');
+  const path = require('path');
+  const config = require('../../../config/path');
+
+  // multipart upload
+  let parts = parse(this);
+  let part;
+
+  this.body = false;
+
+  while (part = yield parts) {
+    if (part.length) {
+      console.log('key: ' + part[0]);
+      console.log('value: ' + part[1]);
+    } else {
+      let stream = fs.createWriteStream(path.join(config.tmp, Math.random().toString()));
+      part.pipe(stream);
+
+      console.log('uploading %s -> %s', part.filename, stream.path);
+
+      this.body = {
+        success: true,
+        fileName: part.filename,
+        tmpFileName: path.basename(stream.path),
+      };
+    }
+  }
+
+  this.type = 'application/json';
+}
+
 module.exports.index = index;
 module.exports.info = info;
 module.exports.create = create;
 module.exports.update = update;
 module.exports.delete = remove;
+module.exports.import = importExcel;

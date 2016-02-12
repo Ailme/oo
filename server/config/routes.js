@@ -5,6 +5,7 @@ const router = require("koa-router")();
 
 const testController = require(config.path.controllers + '/test');
 const authController = require(config.path.controllers + '/auth');
+const regionController = require(config.path.controllers + '/region');
 
 const apiUserControllerV1 = require(config.path.controllers + '/api/v1/user');
 const apiAuthControllerV1 = require(config.path.controllers + '/api/v1/auth');
@@ -51,6 +52,7 @@ module.exports = function (app, passport) {
   // region
   router.get("/api/v1/region", secured, apiRegionControllerV1.index);
   router.post("/api/v1/region", secured, apiRegionControllerV1.create);
+  router.post("/api/v1/region/import", secured, apiRegionControllerV1.import);
   router.get("/api/v1/region/:id", secured, apiRegionControllerV1.info);
   router.post("/api/v1/region/:id", secured, apiRegionControllerV1.update);
   router.del("/api/v1/region/:id", secured, apiRegionControllerV1.delete);
@@ -127,6 +129,9 @@ module.exports = function (app, passport) {
   router.get("/region", secured, function *() {
     yield this.render('region/index');
   });
+  //router.get("/region/import", secured, regionController.import);
+  //router.post("/region/import", secured, regionController.doImport);
+
   router.get("/area", secured, function *() {
     yield this.render('area/index');
   });

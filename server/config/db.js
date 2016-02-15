@@ -10,6 +10,7 @@ module.exports = {
     port: 33060,
     charset: 'utf8',
     timezone: '+03:00',
-    logging: console.log
+    //logging: console.log
+    logging: false
   }
 };

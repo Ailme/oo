@@ -129,8 +129,8 @@ module.exports = function (app, passport) {
   router.get("/region", secured, function *() {
     yield this.render('region/index');
   });
-  //router.get("/region/import", secured, regionController.import);
-  //router.post("/region/import", secured, regionController.doImport);
+  router.get("/region/import", secured, regionController.import);
+  router.post("/region/import", secured, regionController.doImport);
 
   router.get("/area", secured, function *() {
     yield this.render('area/index');

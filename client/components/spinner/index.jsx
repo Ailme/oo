@@ -1,11 +1,13 @@
 "use strict";
 
 /*eslint-disable */
-import React from 'react';
+import React, {PropTypes} from 'react';
 /*eslint-enable */
 
 class Spinner extends React.Component {
-  static propTypes = {};
+  static propTypes = {
+    visible: PropTypes.bool,
+  };
 
   constructor(props) {
     super(props);
@@ -22,9 +24,9 @@ class Spinner extends React.Component {
   render() {
     if (this.props.visible) {
       return <i className="fa fa-fw fa-spinner fa-pulse"/>;
-    } else {
-      return null;
     }
+
+    return null;
   }
 }
 

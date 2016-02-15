@@ -49,8 +49,9 @@ class TableRow extends React.Component {
             <MenuItem eventKey={item.id} onSelect={this.props.onEdit}
                       className="text-primary">Изменить</MenuItem>
             <MenuItem divider/>
-            <MenuItem eventKey={item.id} onSelect={this.props.onDelete}
-                      className="text-danger">Удалить</MenuItem>
+            <MenuItem eventKey={item.id} onSelect={this.props.onDelete}>
+              <span className="text-danger">Удалить</span>
+            </MenuItem>
           </DropdownButton>
         </td>
         <td>{item.name}</td>

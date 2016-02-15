@@ -5,7 +5,7 @@ import React from 'react';
 import {DropdownButton, MenuItem} from 'react-bootstrap';
 import classNames from 'classnames';
 /*eslint-enable */
-import Check from '../../../components/check';
+import {IconCheck} from '../../../components/icon';
 
 
 class TableRow extends React.Component {
@@ -41,8 +41,9 @@ class TableRow extends React.Component {
             <MenuItem eventKey={item.id} onSelect={this.props.onEdit}
                       className="text-primary">Изменить</MenuItem>
             <MenuItem divider/>
-            <MenuItem eventKey={item.id} onSelect={this.props.onDelete}
-                      className="text-danger">Удалить</MenuItem>
+            <MenuItem eventKey={item.id} onSelect={this.props.onDelete}>
+              <span className="text-danger">Удалить</span>
+            </MenuItem>
           </DropdownButton>
         </td>
         <td>{item.name}</td>
@@ -53,8 +54,8 @@ class TableRow extends React.Component {
         <td>{this.getDay(5)}</td>
         <td>{this.getDay(6)}</td>
         <td>{this.getDay(7)}</td>
-        <td><Check check={item.work_in_holiday} /></td>
-        <td><Check check={item.work_in_night} /></td>
+        <td><IconCheck check={item.work_in_holiday}/></td>
+        <td><IconCheck check={item.work_in_night}/></td>
         <td>{item.days}</td>
       </tr>
     );

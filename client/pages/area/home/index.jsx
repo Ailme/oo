@@ -103,7 +103,7 @@ class HomePage extends React.Component {
       <Grid fluid={true}>
         <PageHeader>Области</PageHeader>
         <Toolbar />
-
+        <p />
         <Row>
           <Col sm={12}>
             <Table data={this.state.items} onEdit={this.onEdit} onDelete={this.onDelete}/>

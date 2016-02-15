@@ -5,6 +5,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {ButtonToolbar, Button} from 'react-bootstrap';
 /*eslint-enable */
+import {IconExcel, IconPlus} from '../../../components/icon';
 
 export default class Toolbar extends React.Component {
   static propTypes = {};
@@ -47,10 +48,10 @@ export default class Toolbar extends React.Component {
     return (
       <ButtonToolbar>
         <Link className="btn btn-success" to="/create">
-          <i className="fa fa-fw fa-plus fa-lg"/> добавить
+          <IconPlus size="lg"/> добавить
         </Link>
         <Link className="btn btn-default" to="/import">
-          <i className="fa fa-fw fa-file-excel-o fa-lg"/> импорт
+          <IconExcel size="lg"/> импорт
         </Link>
       </ButtonToolbar>
     )

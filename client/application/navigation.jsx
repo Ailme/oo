@@ -44,24 +44,25 @@ export default class navigation extends React.Component {
   }
 
   render() {
+    let key = this.props.route.eventKey;
     return (
       <Navbar inverse fixedTop={true} fluid={true}>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="/">Устройства</NavItem>
-            <NavDropdown eventKey={2} title="Справочники" id="nav-drop-1">
-              <MenuItem eventKey={2.1} href="/user">Пользователи</MenuItem>
-              <MenuItem eventKey={2.2} href="/region">Регионы</MenuItem>
-              <MenuItem eventKey={2.3} href="/area">Области</MenuItem>
-              <MenuItem eventKey={2.4} href="/placing">Размещения</MenuItem>
-              <MenuItem eventKey={2.5} href="/zone">Зоны</MenuItem>
-              <MenuItem eventKey={2.6} href="/zone-user">Зоны клиента/партнера</MenuItem>
-              <MenuItem eventKey={2.7} href="/vendor">Производители</MenuItem>
-              <MenuItem eventKey={2.8} href="/model">Модели</MenuItem>
-              <MenuItem eventKey={2.9} href="/type">Типы устройств</MenuItem>
-              <MenuItem eventKey={2.10} href="/service-type">Типы обслуживания</MenuItem>
-              <MenuItem eventKey={2.11} href="/service-category">Категории обслуживания</MenuItem>
-              <MenuItem eventKey={2.12} href="/maintenance">Графики обслуживания</MenuItem>
+            <NavItem eventKey={1} active={~~key == 1} href="/">Устройства</NavItem>
+            <NavDropdown eventKey={2} active={~~key == 2} title="Справочники" id="nav-drop-1">
+              <MenuItem eventKey={2.1} active={key == 2.1} href="/user">Пользователи</MenuItem>
+              <MenuItem eventKey={2.2} active={key == 2.2} href="/region">Регионы</MenuItem>
+              <MenuItem eventKey={2.3} active={key == 2.3} href="/area">Области</MenuItem>
+              <MenuItem eventKey={2.4} active={key == 2.4} href="/placing">Размещения</MenuItem>
+              <MenuItem eventKey={2.5} active={key == 2.5} href="/zone">Зоны</MenuItem>
+              <MenuItem eventKey={2.6} active={key == 2.6} href="/zone-user">Зоны клиента/партнера</MenuItem>
+              <MenuItem eventKey={2.7} active={key == 2.7} href="/vendor">Производители</MenuItem>
+              <MenuItem eventKey={2.8} active={key == 2.8} href="/model">Модели</MenuItem>
+              <MenuItem eventKey={2.9} active={key == 2.9} href="/type">Типы устройств</MenuItem>
+              <MenuItem eventKey={2.11} active={key == 2.11} href="/service-type">Типы обслуживания</MenuItem>
+              <MenuItem eventKey={2.12} active={key == 2.12} href="/service-category">Категории обслуживания</MenuItem>
+              <MenuItem eventKey={2.13} active={key == 2.13} href="/maintenance">Графики обслуживания</MenuItem>
             </NavDropdown>
           </Nav>
           <Nav pullRight>

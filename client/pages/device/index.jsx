@@ -12,7 +12,7 @@ import UpdatePage from "./update";
 
 render((
   <Router history={browserHistory}>
-    <Route path="/" component={Application}>
+    <Route path="/" component={Application} eventKey={1}>
       <IndexRoute component={HomePage}/>
       <Route path="*" component={NoMatch}/>
     </Route>

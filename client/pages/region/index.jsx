@@ -13,7 +13,7 @@ import ImportPage from "./import";
 
 render((
   <Router history={browserHistory}>
-    <Route path="/" component={Application}>
+    <Route path="/" component={Application} eventKey={2.2}>
       <IndexRoute component={HomePage}/>
       <Route path="/create" component={UpdatePage}/>
       <Route path="/import" component={ImportPage}/>

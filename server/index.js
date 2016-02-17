@@ -34,6 +34,7 @@ app.use(require('koa-compress')());
 app.use(require('koa-response-time')());
 
 require('./config/routes')(app, passport);
+require('./config/routes-api-v1')(app, passport);
 
 module.exports.app = app;
 module.exports.config = config;

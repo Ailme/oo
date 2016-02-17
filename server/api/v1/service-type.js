@@ -1,6 +1,6 @@
 "use strict";
 
-const db = require('../../../models');
+const db = require('../../models');
 
 function *index() {
   let Model = db.serviceType;

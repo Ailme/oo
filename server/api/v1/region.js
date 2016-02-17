@@ -1,9 +1,11 @@
 "use strict";
 
-const db = require('../../../models');
+const db = require('../../models');
+// https://www.npmjs.com/package/log-util
+const log = require('log-util');
 
 function *index() {
-  let Model = db.area;
+  let Model = db.region;
 
   this.type = 'application/json';
   this.body = yield function (done) {
@@ -14,7 +16,7 @@ function *index() {
 }
 
 function *info() {
-  let Model = db.area;
+  let Model = db.region;
   let ctx = this;
 
   this.type = 'application/json';
@@ -45,7 +47,7 @@ function *create() {
     return
   }
 
-  let Model = db.area;
+  let Model = db.region;
   let ctx = this;
 
   yield function (done) {
@@ -68,7 +70,7 @@ function *create() {
  */
 function *update() {
   let ctx = this;
-  let Model = db.area;
+  let Model = db.region;
   let params = this.request.body;
 
   this.type = 'application/json';
@@ -106,10 +108,71 @@ function *update() {
  */
 function *remove() {
   let ctx = this;
-  let Model = db.area;
+  let Model = db.region;
   this.type = 'application/json';
 
   this.body = yield Model.destroy({where: {id: ctx.params.id}});
+}
+
+function *importExcel() {
+  // https://github.com/cojs/busboy
+  const parse = require('co-busboy');
+  const fs = require('fs');
+  const path = require('path');
+  const config = require('../../../config/path');
+  const xlsx = require('xlsx');
+  const co = require('co');
+
+  // multipart upload
+  let parts = parse(this, {
+    checkFile: function (fieldname, file, filename) {
+      let ext = path.extname(filename);
+
+      if (ext !== '.xlsx') {
+        let err = new Error('Файл должен иметь xlsx расширение');
+        err.status = 400;
+        return err;
+      }
+    }
+  });
+
+  let part = yield parts;
+  let stream = fs.createWriteStream(path.join(config.tmp, Math.random().toString()));
+  part.pipe(stream);
+
+  let workBook = yield function (done) {
+    stream.on('close', function () {
+      try {
+        let workBook = xlsx.readFileSync(stream.path);
+        done(null, workBook);
+      } catch (err) {
+        done(err);
+      }
+    });
+  };
+
+  let sheetName = workBook.SheetNames[0];
+  let workSheet = workBook.Sheets[sheetName];
+
+  let rows = xlsx.utils.sheet_to_json(workSheet);
+
+  let messages = yield rows.map((item) => {
+    return db.region.build({name: item['Название'].trim()})
+      .save()
+      .then(() => {
+        return true;
+      })
+      .catch((err) => {
+        return (err.errors[0].message + ' ' + err.errors[0].value);
+      });
+  });
+
+  this.body = {
+    success: true,
+    error: messages.filter((item) => item !== true),
+  };
+
+  this.type = 'application/json';
 }
 
 module.exports.index = index;
@@ -117,3 +180,4 @@ module.exports.info = info;
 module.exports.create = create;
 module.exports.update = update;
 module.exports.delete = remove;
+module.exports.import = importExcel;

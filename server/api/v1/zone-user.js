@@ -1,9 +1,9 @@
 "use strict";
 
-const db = require('../../../models');
+const db = require('../../models');
 
 function *index() {
-  let Model = db.zone;
+  let Model = db.zoneUser;
 
   this.type = 'application/json';
   this.body = yield function (done) {
@@ -14,7 +14,7 @@ function *index() {
 }
 
 function *info() {
-  let Model = db.zone;
+  let Model = db.zoneUser;
   let ctx = this;
 
   this.type = 'application/json';
@@ -45,7 +45,7 @@ function *create() {
     return
   }
 
-  let Model = db.zone;
+  let Model = db.zoneUser;
   let ctx = this;
 
   yield function (done) {
@@ -68,7 +68,7 @@ function *create() {
  */
 function *update() {
   let ctx = this;
-  let Model = db.zone;
+  let Model = db.zoneUser;
   let params = this.request.body;
 
   this.type = 'application/json';
@@ -85,7 +85,7 @@ function *update() {
       .then(function (model) {
         let body = {
           success: true,
-          message: ctx.i18n.__('The Zone is updated'),
+          message: ctx.i18n.__('The zoneUser is updated'),
         };
 
         done(null, body);
@@ -106,7 +106,7 @@ function *update() {
  */
 function *remove() {
   let ctx = this;
-  let Model = db.zone;
+  let Model = db.zoneUser;
   this.type = 'application/json';
 
   this.body = yield Model.destroy({where: {id: ctx.params.id}});

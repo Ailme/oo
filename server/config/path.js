@@ -5,6 +5,7 @@ const path = require('path');
 module.exports = {
   app: path.resolve(__dirname, '../'),
   root: path.resolve(__dirname, '../../'),
+  api: path.resolve(__dirname, '../api'),
   controllers: path.resolve(__dirname, '../controllers'),
   models: path.resolve(__dirname, '../models'),
   views: path.resolve(__dirname, '../views'),

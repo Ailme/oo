@@ -25,6 +25,7 @@ let secured = function *(next) {
     yield next;
   } else {
     this.status = 401;
+    this.body = {'error': 'Вы должны быть авторизованы'}
   }
 };
 

@@ -46,6 +46,12 @@ module.exports = {
   error: {
     template: path.views + '/error/error.html',
   },
+  // https://github.com/tunnckoCore/koa-better-ratelimit
+  limit: {
+    duration: 1000 * 60 * 1, // 1 min
+    max: 500,
+    blacklist: []
+  },
   path: path,
   flash: {}
 };

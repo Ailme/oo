@@ -8,7 +8,6 @@ const xl = require('excel4node');
 
 function *exportExcel(next) {
   let Model = db.area;
-  console.log(this.res);
 
   let items = yield function (done) {
     Model.all().then((rows) => {

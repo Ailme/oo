@@ -30,8 +30,9 @@ app.use(require('./lib/assets')(assets));
 app.use(require('koa-swig-render')(config.templates));
 app.use(require('koa-error')(config.error));
 app.use(require('koa-logger')());
+app.use(require('koa-better-ratelimit')(config.limit));
 app.use(require('koa-compress')());
-app.use(require('koa-response-time')());
+//app.use(require('koa-response-time')());
 
 require('./config/routes')(app, passport);
 require('./config/routes-api-v1')(app, passport);
